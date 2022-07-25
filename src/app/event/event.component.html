@@ -1,0 +1,46 @@
+
+<!--div class="buttons__container">
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedByType()" >Sort by Type</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedById()" >Sort by Id</button>
+  </div>
+</!--div>
+
+<div-- class="table__container">
+  <table class="centered striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Url actor</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{event.id}}</td>
+        <td>{{event.type}}</td>
+        <td>{{event.actor.url}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div-->
+
+<div class="buttons__container">
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedByType()" >Sort by Type</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedById()" >Sort by Id</button>
+  </div>
+</div>
+
+<div class="center-align">
+  <h4>Events</h4>
+</div>
+<ul class="collection with-header" *ngFor="let event of events">
+  <li class="collection-item">{{event | json}}</li>
+</ul>
+
