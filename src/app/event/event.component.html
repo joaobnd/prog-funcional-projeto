@@ -1,33 +1,3 @@
-
-<!--div class="buttons__container">
-  <div class="button__box">
-    <button class="waves-effect waves-light btn" (click)="getEventsSortedByType()" >Sort by Type</button>
-  </div>
-  <div class="button__box">
-    <button class="waves-effect waves-light btn" (click)="getEventsSortedById()" >Sort by Id</button>
-  </div>
-</!--div>
-
-<div-- class="table__container">
-  <table class="centered striped">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Type</th>
-        <th>Url actor</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let event of events">
-        <td>{{event.id}}</td>
-        <td>{{event.type}}</td>
-        <td>{{event.actor.url}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div-->
-
 <div class="buttons__container">
   <div class="button__box">
     <button class="waves-effect waves-light btn" (click)="getEventsSortedByType()" >Sort by Type</button>
@@ -42,7 +12,7 @@
     <button class="waves-effect waves-light btn" (click)="groupEventsBy()" >Group By Types</button>
   </div>
   <div class="button__box">
-    <button class="waves-effect waves-light btn" (click)="fold()" >Show type frequency</button>
+    <button class="waves-effect waves-light btn" (click)="fold()">Show type frequency</button>
   </div>
   <div class="button__box">
     <button class="waves-effect waves-light btn" (click)="compose()" >Compose</button>
@@ -65,11 +35,11 @@
   {{group | json}}
 </div>
 
-<div *ngFor="let count of eventCount | keyvalue">
+<div *ngFor="let count of eventCount | keyvalue" >
   {{count.key | json}}: {{count.value | json}}
 </div>
 
-<ul class="collection with-header" *ngFor="let event of events">
-  <li *ngIf="!group" class="collection-item">{{event | json}}</li>
+<ul class="collection with-header" *ngFor="let event of viewEvents">
+  <li class="collection-item" *ngIf="!group">{{event | json}}</li>
 </ul>
 

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 import { Util } from '../shared/util'
+import { IEvent } from '../models/event'
 
 @Component({
   selector: 'app-event',
@@ -10,10 +11,10 @@ import { Util } from '../shared/util'
 })
 export class EventComponent implements OnInit {
 
-  events: any[] = []
+  events: IEvent[] = []
+  viewEvents: IEvent[] = []
   group: any = undefined
-  eventCount = new Map<string, number>();
-  repos: any[] = []
+  eventCount = new Map<string, number>()
   options: string[] = ["CommitCommentEvent",
   "CreateEvent",
   "DeleteEvent",
@@ -37,37 +38,31 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getEvents().subscribe(
-      (events) => this.events = events
+      (events) => { this.events = events,
+      this.viewEvents = Object.assign([], this.events)}
     )
   }
 
-  onSelected(value:string) {
-    alert(value)
-    this.selected = value
-  }
-
-  getEvents() {
-    return this.events
-  }
-
   getEventsSortedByType() {
-    Util.orderBy(this.events, 'type')
+    this.viewEvents = Util.orderBy(Object.assign([], this.events), 'type')
   }
 
   getEventsSortedById() {
-    Util.orderBy(this.events, 'id')
+    this.viewEvents = Util.orderBy(Object.assign([], this.events), 'id')
   }
 
   getEventsWithoutDuplicates() {
-    this.events = Util.distinct(this.events, 'type')
+    this.viewEvents = Util.distinct(Object.assign([], this.events), 'type')
   }
 
   groupEventsBy() {
-    this.group = Util.groupBy(this.events, 'type')
+    this.group = Util.groupBy(Object.assign([], this.events), 'type')
+
   }
 
   onChange() {
-    this.group = this.group[this.selected]
+    this.groupEventsBy()
+    this.group = this.group[this.selected] ||'None'
   }
 
   fold() {
@@ -99,7 +94,7 @@ export class EventComponent implements OnInit {
   }
 
   compose() {
-    this.events = Util.compose(Util.distinct, Util.orderBy) (this.events)
+    this.viewEvents = Util.compose(Util.distinct, Util.orderBy) (Object.assign([], this.events))
   }
 
 }
