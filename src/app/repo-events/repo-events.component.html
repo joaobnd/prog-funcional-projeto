@@ -1,1 +1,44 @@
-<p>repo-events works!</p>
+<div class="buttons__container">
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedByType()" >Sort by Type</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsSortedById()" >Sort by Id</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="getEventsWithoutDuplicates()" >Remove Type Duplicates</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="groupEventsBy()" >Group By Types</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="fold()">Show type frequency</button>
+  </div>
+  <div class="button__box">
+    <button class="waves-effect waves-light btn" (click)="compose()" >Compose</button>
+  </div>
+</div>
+
+<mat-form-field appearance="fill" *ngIf="group">
+  <mat-label>Filter by Type</mat-label>
+  <mat-select [(value)]="selected" (valueChange)="onChange()">
+    <mat-option *ngFor="let option of options" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="center-align">
+  <h4>Events of Rails Repository</h4>
+</div>
+<div *ngIf="group" class="collection">
+  {{group | json}}
+</div>
+
+<div *ngFor="let count of eventCount | keyvalue" >
+  {{count.key | json}}: {{count.value | json}}
+</div>
+
+<ul class="collection with-header" *ngFor="let event of viewEvents">
+  <li class="collection-item" *ngIf="!group">{{event | json}}</li>
+</ul>

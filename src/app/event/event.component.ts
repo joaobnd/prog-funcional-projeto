@@ -37,7 +37,7 @@ export class EventComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.api.getEvents().subscribe(
+    this.api.getEvents('public').subscribe(
       (events) => { this.events = events,
       this.viewEvents = Object.assign([], this.events)}
     )
