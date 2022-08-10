@@ -5,9 +5,11 @@
   <div class="button__box">
     <button class="waves-effect waves-light btn" (click)="getEventsSortedById()" >Sort by Id</button>
   </div>
-  <div class="button__box">
+  <!-- 
+    <div class="button__box">
     <button class="waves-effect waves-light btn" (click)="getEventsWithoutDuplicates()" >Remove Type Duplicates</button>
   </div>
+  -->
   <div class="button__box">
     <button class="waves-effect waves-light btn" (click)="groupEventsBy()" >Group By Types</button>
   </div>
@@ -31,14 +33,47 @@
 <div class="center-align">
   <h4>Events of Rails Repository</h4>
 </div>
+
 <div *ngIf="group" class="collection">
-  {{group | json}}
+  <div *ngFor="let typeEvent of group | keyvalue">
+      <div class="collection">
+        <h1 class="event_attrs"> {{typeEvent.key | json}}: </h1>
+        <pre>{{typeEvent.value|json}}</pre> 
+        <!--
+        <ul class="collection with-header" *ngFor="let event of typeEvent.value">
+          <li class="collection-item" *ngIf="!group"> 
+            <p><span class="event_attrs"> ID: </span> {{event.id | json}}</p>
+            <p><span class="event_attrs"> Type: </span> {{event.type | json}}</p>
+            <p><span class="event_attrs"> Actor: </span> {{event.actor | json}}</p>
+            <p><span class="event_attrs"> Repo: </span> {{event.repo | json}}</p>
+            <p><span class="event_attrs"> Public: </span> {{event.public | json}}</p>
+            <p><span class="event_attrs"> Created_at: </span> {{event.created_at | json}}</p>
+            <details>
+              <summary><span class="event_attrs"> RAW EVENT </span></summary>
+              <div><pre>{{event | json}}</pre></div>
+            </details>
+          </li>
+        </ul>
+        -->
+      </div>
+    </div>
 </div>
 
-<div *ngFor="let count of eventCount | keyvalue" >
-  {{count.key | json}}: {{count.value | json}}
+<div *ngFor="let count of eventCount | keyvalue">
+  <span class="event_attrs">{{count.key | json}}: </span> {{count.value | json}}
 </div>
 
 <ul class="collection with-header" *ngFor="let event of viewEvents">
-  <li class="collection-item" *ngIf="!group">{{event | json}}</li>
+  <li class="collection-item" *ngIf="!group"> 
+    <p><span class="event_attrs"> ID: </span> {{event.id | json}}</p>
+    <p><span class="event_attrs"> Type: </span> {{event.type | json}}</p>
+    <p><span class="event_attrs"> Actor: </span> {{event.actor | json}}</p>
+    <p><span class="event_attrs"> Repo: </span> {{event.repo | json}}</p>
+    <p><span class="event_attrs"> Public: </span> {{event.public | json}}</p>
+    <p><span class="event_attrs"> Created_at: </span> {{event.created_at | json}}</p>
+    <details>
+      <summary><span class="event_attrs"> RAW EVENT </span></summary>
+      <div><pre>{{event | json}}</pre></div>
+    </details>
+  </li>
 </ul>
